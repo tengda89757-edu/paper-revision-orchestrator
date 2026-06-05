@@ -1,0 +1,4 @@
+interface:
+  display_name: "Paper Revision Orchestrator"
+  short_description: "Run target-journal-driven manuscript revision in goal or blast mode"
+  default_prompt: "Use this skill to revise my manuscript for a target journal. Search recent target-journal patterns, audit evidence and structure, polish language, check figures/citations, and keep iterating until the final gate passes or author input is required."
