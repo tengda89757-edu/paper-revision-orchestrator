@@ -41,6 +41,11 @@ requests author input only where a genuine authorial decision is required.
    experiments, or the strategic narrowing of claims.
 8. Conclude any substantial revision with verification and a report of residual
    risk.
+9. Maintain figure consistency. All figures should share a uniform visual style
+   and a fixed color scheme, in which each color carries a single, stable meaning
+   and is never reused for a different quantity or category. The number of
+   figures and panels, and every value they display, must agree with the
+   manuscript text and the underlying source data.
 
 ## Minimal-Input Start
 

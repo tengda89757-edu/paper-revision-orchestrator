@@ -162,11 +162,16 @@ Outputs:
 - a list of citation gaps with notes on the strength of support;
 - a list of mismatches among numbers, captions, and source data;
 - corrections to figure and table logic;
+- a uniform figure style and a fixed color scheme, in which each color denotes a
+  single, stable meaning and is not reused for a different quantity or category;
+- figure counts and displayed values that agree with the manuscript text and the
+  underlying source data;
 - Data Availability and code/materials statements;
 - updated `revision_queue.md`.
 
 Conclude this stage once no known mismatch in numbers, citations, figures, or
-data and code remains unresolved, except for those marked as author checks.
+data and code remains unresolved, except for those marked as author checks, and
+once all figures share a consistent style and a fixed color encoding.
 
 ### 6. Integrated language pass
 
