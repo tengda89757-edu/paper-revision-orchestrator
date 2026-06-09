@@ -1,72 +1,74 @@
-# Modes and Orchestration
+# Operating Regimes and Coordination
 
-## Goal Mode
+## Goal Regime
 
-Trigger when the user explicitly says `开启目标模式`, `go目标模式`, `goal mode`,
-`自主打磨`, or equivalent.
+Activate when the author explicitly states `开启目标模式`, `go目标模式`,
+`goal mode`, `自主打磨`, or an equivalent.
 
-If the goal tool is available, create a goal:
+If a goal-setting tool is available, define the goal:
 
 ```text
-Revise [manuscript] for [target journal] until the paper-revision final gate
-passes or a real blocker requires author input.
+Revise [manuscript] for [target journal] until the final assessment of the
+revision is satisfied or a genuine blocker requires author input.
 ```
 
 Behavior:
 
-1. Continue through journal calibration, audit, revision rounds, and verification
-   without routine approval pauses.
-2. Ask only for blocking author choices, missing manuscripts, paid/unavailable
-   sources, expensive new experiments, or strategic claim narrowing.
-3. Update the work artifacts after each substantial round.
-4. Mark complete only when the final gate passes.
-5. Mark blocked only after a repeated external blocker prevents meaningful
-   progress and cannot be resolved locally.
+1. Proceed through journal calibration, audit, successive revision rounds, and
+   verification without pausing for routine approval.
+2. Request author input only for decisions that block progress, missing
+   manuscripts, paid or unavailable sources, costly new experiments, or the
+   strategic narrowing of claims.
+3. Update the working records after each substantial round.
+4. Mark the work complete only when the final assessment is satisfied.
+5. Mark the work blocked only after a recurring external obstacle prevents
+   meaningful progress and cannot be resolved locally.
 
-If the goal tool is unavailable, simulate goal mode with a local queue and
-explicit status.
+If no goal-setting tool is available, emulate the goal regime with a local
+priority list and an explicit status.
 
-## Blast Mode
+## Blast Regime
 
-Trigger only when the user explicitly asks for `爆模式`, `多模型`, `多agent`,
-`并行`, `parallel review`, or equivalent. Use subagents only when available and
-authorized by the environment. Do not override models unless the user explicitly
-requests a model or a clear task-specific reason exists.
+Activate only when the author explicitly requests `爆模式`, `多模型`, `多agent`,
+`并行`, `parallel review`, or an equivalent. Employ parallel reviewers only where
+the environment makes them available and authorized. Do not override the model
+unless the author explicitly requests one or a clear task-specific reason exists.
 
-Parallel roles are report-only. The controller owns final edits.
+The parallel roles are advisory; the coordinating skill retains responsibility
+for the final edits.
 
 | Role | Scope | Output |
 |---|---|---|
 | Journal Scout | official guidance and recent target-journal papers | journal profile, constraints, desk-reject risks |
-| Literature Scout | topic-adjacent recent papers | novelty pressure, missing citation zones |
-| Evidence Auditor | manuscript claims vs artifacts | claim ledger, number mismatches, unsupported claims |
+| Literature Scout | topic-adjacent recent papers | areas of novelty pressure, gaps in citation |
+| Evidence Auditor | manuscript claims against source materials | claim register, numerical mismatches, unsupported claims |
 | Structure Architect | manuscript architecture | title/abstract/intro/results/discussion diagnosis |
-| Language Sweeper | prose and de-AI | paragraph flow, clutter, terminology, AI residue |
+| Language Reviewer | prose and de-AI editing | paragraph flow, redundancy, terminology, AI residue |
 | Figure/Data Inspector | figures, captions, source data, availability | figure/data risk list |
 | Rebuttal Strategist | reviews and response package | reviewer matrix, traceability gaps |
 
-Merge reports into the P0-P4 queue. Verified manuscript artifacts override role
-opinions.
+Integrate the findings into the P0–P4 priority scheme. Verified manuscript
+materials take precedence over the opinions of the individual roles.
 
-## Work Artifacts
+## Working Records
 
-For goal/blast mode, create `paper_revision_work/` next to the manuscript unless
-the user asks for chat-only work.
+In the goal and blast regimes, create `paper_revision_work/` alongside the
+manuscript, unless the author requests discussion-only assistance.
 
 | File | Purpose |
 |---|---|
 | `journal_profile.md` | target-journal requirements and recent comparator-paper patterns |
 | `claim_ledger.md` | major claims, evidence anchors, boundaries, and status |
-| `revision_queue.md` | P0-P4 issue queue, owner skill/role, status, next action |
-| `edit_log.md` | substantive edits made and why |
+| `revision_queue.md` | P0–P4 issue list, responsible skill or role, status, and next action |
+| `edit_log.md` | substantive edits and their rationale |
 | `verification.md` | build/render/citation/number/figure/package checks and residual risks |
 
-Keep these files concise. Do not create large duplicate manuscript copies unless
-needed for safety, tracked changes, or format conversion.
+Keep these files concise. Do not create large duplicate copies of the manuscript
+unless required for safety, tracked changes, or format conversion.
 
-## User Updates
+## Progress Updates
 
-During long runs, update the user with:
+During extended runs, report progress to the author as follows:
 
 ```text
 Current phase:
@@ -75,4 +77,4 @@ What I am checking next:
 Blocked items:
 ```
 
-Avoid dumping full ledgers in chat unless the user asks.
+Do not reproduce full registers in conversation unless the author requests them.

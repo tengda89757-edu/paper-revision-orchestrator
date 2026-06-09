@@ -1,48 +1,48 @@
-# Language Fusion
+# Integrated Language Pass
 
-Use this reference for English manuscript language passes after evidence,
-structure, section architecture, numbers, citations, and figure claims are
-stable.
+This reference governs the language pass for English manuscripts, undertaken once
+the evidence, structure, section architecture, numbers, citations, and figure
+claims are stable.
 
-The fusion order is:
+The sequence is:
 
 ```text
 nature-polishing -> manuscript-writing-review (SCIWRITE) ->
-humanizer_academic -> academic-deai safety guard
+humanizer_academic -> academic-deai safeguard
 ```
 
-Do not run this pass to hide weak reasoning, unsupported claims, missing
-evidence, or journal mismatch.
+This pass must not be used to disguise weak reasoning, unsupported claims,
+missing evidence, or a mismatch with the journal.
 
-## Owner Roles
+## Contributing Components
 
-| Layer | Skill | What it contributes |
+| Layer | Skill | Contribution |
 |---|---|---|
-| Section flow | `nature-polishing` | Nature-leaning section logic, reader workflow, claim calibration |
-| Scientific clarity | `manuscript-writing-review` | clutter removal, active voice, sentence architecture, terminology, numerical/citation consistency |
+| Section flow | `nature-polishing` | Nature-leaning section logic, reader guidance, claim calibration |
+| Scientific clarity | `manuscript-writing-review` | removal of redundancy, active voice, sentence structure, terminology, numerical and citation consistency |
 | AI residue detection | `humanizer_academic` | inflated significance, superficial -ing clauses, vague attributions, AI vocabulary, copula avoidance, generic conclusions |
-| Safety guard | `academic-deai` | meaning preservation, citation relationship protection, edit-level control, transparent skipped-risk reporting |
+| Safeguard | `academic-deai` | meaning preservation, protection of citation relationships, edit-level control, transparent reporting of skipped risks |
 
-For Chinese academic prose, use `academic-deai-zh` instead of the English
-humanizer stack unless the output must be English.
+For Chinese academic prose, use `academic-deai-zh` in place of the English
+humanizer components, unless the output must be in English.
 
-## Fused Pass Sequence
+## Sequence of Passes
 
 ### 1. Section-flow check
 
-Use `nature-polishing` principles:
+Apply the principles of `nature-polishing`:
 
-- confirm the section has the right rhetorical job;
-- repair paragraph order before local sentence edits;
-- keep claims near supporting evidence;
+- confirm that the section serves the correct rhetorical purpose;
+- correct paragraph order before local sentence-level edits;
+- keep claims close to their supporting evidence;
 - avoid polishing Results into Discussion or Discussion into Results;
-- preserve bounded, evidence-linked claims.
+- preserve bounded claims that are linked to evidence.
 
 ### 2. SCIWRITE precision pass
 
-Use `manuscript-writing-review` as the precision core:
+Use `manuscript-writing-review` as the core of this pass:
 
-1. Remove clutter and dead-weight phrases.
+1. Remove redundancy and superfluous phrasing.
 2. Convert passive voice only when it obscures accountability.
 3. Repair buried predicates and overloaded sentences.
 4. Enforce keyword, group-name, variable-name, and acronym consistency.
@@ -53,7 +53,7 @@ statistical statements.
 
 ### 3. Humanizer residue pass
 
-Use `humanizer_academic` to remove AI-like patterns:
+Use `humanizer_academic` to remove patterns characteristic of AI-generated text:
 
 - inflated significance, legacy, or broader-trend claims;
 - superficial present-participle explanations such as `highlighting`,
@@ -65,31 +65,32 @@ Use `humanizer_academic` to remove AI-like patterns:
 - forced rule-of-three lists, negative parallelisms, false ranges, and elegant
   synonym cycling.
 
-Replace vague language with specific evidence. If evidence is absent, weaken or
-delete the claim instead of smoothing it.
+Replace vague language with specific evidence. Where evidence is absent, qualify
+or remove the claim rather than smoothing it over.
 
-### 4. Academic De-AI safety guard
+### 4. Academic de-AI safeguard
 
-Use `academic-deai` before accepting the rewrite:
+Apply `academic-deai` before accepting the revised text:
 
-- choose edit level: `No-op`, `Micro-edit only`, or `Full safe rewrite`;
+- select an editing level: `No-op`, `Micro-edit only`, or `Full safe rewrite`;
 - default to `Micro-edit only` for methods, exact result interpretation,
   citation-heavy related work, theorem-like text, and symbol-bearing passages;
 - preserve technical meaning, citation intent, evidential strength, named
   algorithms, datasets, comparison bases, and numerical detail;
-- report skipped high-risk edits and suspicious residue when relevant.
+- report any high-risk edits not made, and any suspicious residue, where
+  relevant.
 
 ## Acceptance Criteria
 
-A language pass passes only when:
+A language pass is acceptable only when:
 
-- no unsupported claim became stronger;
+- no unsupported claim has been strengthened;
 - citation relationships and numerical statements are unchanged or verified;
 - terminology is consistent across Methods, Results, captions, and Discussion;
-- AI-like residue is reduced without making prose generic;
-- any risky unchanged text is listed for manual review.
+- AI-like residue has been reduced without rendering the prose generic;
+- any risky text left unchanged is listed for manual review.
 
-## Output Template
+## Reporting Template
 
 ```text
 Language pass:

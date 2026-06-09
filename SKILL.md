@@ -1,43 +1,50 @@
 ---
 name: paper-revision-orchestrator
-description: Use when revising an existing academic manuscript, draft, outline, response package, or submission package through a dumb-proof workflow across target-journal calibration, recent literature search, evidence, structure, argument, prose, figures/tables, citations, de-AI polishing, pre-submission checks, or reviewer response. Trigger for 论文修改, 初稿精修, 目标模式, 爆模式, go目标模式, 结构调整, 顶刊叙事, 图表优化, 引用核查, 投稿前检查, 审稿回复.
+description: Use when revising an existing academic manuscript, draft, outline, response package, or submission package through a structured, guided workflow spanning target-journal calibration, recent literature search, evidence, structure, argument, prose, figures/tables, citations, de-AI polishing, pre-submission checks, or reviewer response. Trigger for 论文修改, 初稿精修, 目标模式, 爆模式, go目标模式, 结构调整, 顶刊叙事, 图表优化, 引用核查, 投稿前检查, 审稿回复.
 ---
 
 # Paper Revision Orchestrator
 
 ## Purpose
 
-Coordinate paper-related skills into one evidence-first manuscript revision
-workflow. This is the routing layer for an existing draft or revision package:
-it chooses the next highest-value action, calls the right specialist skill, and
-keeps iterating until the paper reaches a clear `ready`, `mostly ready`,
-`not ready`, or `blocked` state.
+This skill coordinates the available manuscript-related skills into a single,
+evidence-first revision procedure. It serves as the coordinating layer for an
+existing draft or revision package: it identifies the most consequential next
+action, delegates it to the appropriate specialist skill, and proceeds
+iteratively until the manuscript attains a clearly defined status of `ready`,
+`mostly ready`, `not ready`, or `blocked`.
 
-The intended user experience is simple: the user gives a target journal and a
-manuscript or workspace; Codex discovers the artifacts, calibrates against
-current target-journal guidance and recent comparable papers, revises the
-manuscript, verifies the result, and asks only for real author decisions.
+The intended workflow is straightforward. The author supplies a target journal
+together with a manuscript or workspace; the skill then catalogues the available
+materials, calibrates the manuscript against current target-journal guidance and
+recent comparable publications, revises the text, verifies the outcome, and
+requests author input only where a genuine authorial decision is required.
 
-## Core Rules
+## Guiding Principles
 
-1. Evidence comes before prose. Never polish an unsupported central claim.
-2. Work from large risk to small risk: evidence, thesis, contribution, methods,
-   figures/tables, section logic, paragraphs, sentences, style, formatting.
-3. Maintain a compact claim-evidence-boundary ledger for major claims in the
-   Abstract, Introduction, Results, Discussion, cover letter, and rebuttal.
-4. If a claim is unsupported, verify it from artifacts, weaken it, delete it, or
-   mark `[EVIDENCE GAP: ...]`.
-5. Do not invent results, citations, baselines, experiments, reviewer sentiment,
-   line numbers, journal requirements, dataset identifiers, or figure panels.
-6. Browse for journal-specific or "latest/recent/current" requirements and cite
-   current official sources before final submission advice.
-7. Prefer direct edits when safe. Ask only for blocking author choices, missing
-   source artifacts, expensive new experiments, or strategic claim narrowing.
-8. End substantial work with verification and residual-risk reporting.
+1. Evidence precedes prose. A central claim that lacks support should never be
+   refined stylistically.
+2. Proceed from the most consequential risks to the least: evidence, thesis,
+   contribution, methods, figures and tables, sectional logic, paragraphs,
+   sentences, style, and formatting.
+3. Maintain a concise claim–evidence–boundary register for the principal claims
+   in the Abstract, Introduction, Results, Discussion, cover letter, and rebuttal.
+4. Where a claim is unsupported, verify it against the source materials, qualify
+   it, remove it, or annotate it as `[EVIDENCE GAP: ...]`.
+5. Do not fabricate results, citations, baselines, experiments, reviewer
+   sentiment, line numbers, journal requirements, dataset identifiers, or figure
+   panels.
+6. Consult journal-specific or "latest/recent/current" requirements and cite
+   current official sources before offering final submission advice.
+7. Apply direct edits where doing so is safe. Request author input only for
+   decisions that block progress, missing source materials, costly new
+   experiments, or the strategic narrowing of claims.
+8. Conclude any substantial revision with verification and a report of residual
+   risk.
 
-## Dumb-Proof Start
+## Minimal-Input Start
 
-The user may start with only:
+The author may begin with no more than:
 
 ```text
 目标期刊: [journal]
@@ -47,108 +54,117 @@ The user may start with only:
 
 Default assumptions:
 
-- full-manuscript revision;
-- recent target-journal literature window: 12-24 months, extend to 36 months if
-  few comparable papers exist;
-- infer article type from the manuscript, otherwise ask one concise question;
-- conservative claim strength, aggressive structure and clarity repair;
-- propose new experiments or analyses only, never imply they were done;
-- edit local manuscript files when the request implies direct help and the file
-  type is safely editable.
+- revision of the complete manuscript;
+- a recent target-journal literature window of 12–24 months, extended to 36
+  months where few comparable papers exist;
+- the article type is inferred from the manuscript; failing that, a single
+  concise question is posed;
+- conservative calibration of claim strength, with thorough repair of structure
+  and clarity;
+- new experiments or analyses are proposed only, never represented as having
+  been performed;
+- local manuscript files are edited when the request implies direct assistance
+  and the file type can be edited safely.
 
-If only a target journal is supplied, search the workspace for likely manuscript
-files before asking for input. Ask only when no draft exists or multiple primary
-drafts are equally plausible.
+If only a target journal is supplied, the workspace is searched for likely
+manuscript files before any input is requested. Input is sought only when no
+draft exists, or when several primary drafts are equally plausible.
 
-## First Move
+## Initial Steps
 
-1. Identify mode:
-   - `normal`: user asks for one bounded revision task.
-   - `goal`: user says `开启目标模式`, `go目标模式`, `goal mode`, or `自主打磨`.
-   - `blast`: user says `爆模式`, `多模型`, `多agent`, `并行`, or `parallel review`.
-2. Inventory artifacts with local tools first: manuscript, figures, tables,
-   results, code, bibliography, reviews, supplements, and target constraints.
-   If useful, run
+1. Identify the operating regime:
+   - `normal`: the author requests a single, bounded revision task.
+   - `goal`: the author indicates `开启目标模式`, `go目标模式`, `goal mode`, or `自主打磨`.
+   - `blast`: the author indicates `爆模式`, `多模型`, `多agent`, `并行`, or `parallel review`.
+2. Catalogue the available materials using local tools first: manuscript,
+   figures, tables, results, code, bibliography, reviews, supplements, and
+   target constraints. Where helpful, run
    `python scripts/discover_paper_artifacts.py <workspace> --out paper_revision_work/artifacts.json`.
-3. If a target journal is given, run target-journal calibration before the first
-   full rewrite.
-4. Create or update `paper_revision_work/` for goal/blast mode unless the user
-   requests chat-only work.
-5. Build the initial P0-P4 revision queue and start with the highest P0/P1 item.
+3. If a target journal is provided, perform target-journal calibration before
+   the first complete rewrite.
+4. Create or update `paper_revision_work/` in the goal and blast regimes, unless
+   the author requests discussion-only assistance.
+5. Construct the initial P0–P4 priority ordering and begin with the
+   highest-priority P0/P1 item.
 
-## Reference Routing
+## Selecting Reference Material
 
-Open only the files needed for the current stage:
+Consult only the files relevant to the current stage:
 
-| File | Open when |
+| File | Consult when |
 |---|---|
-| [references/practical-revision-workflow.md](references/practical-revision-workflow.md) | Full manuscript run, real-world revision sequence, stage handoffs |
-| [references/modes-and-orchestration.md](references/modes-and-orchestration.md) | Goal mode, blast mode, model/subagent orchestration, work artifacts |
-| [references/target-journal-calibration.md](references/target-journal-calibration.md) | Target journal supplied, latest guidance needed, recent same-journal paper scan |
-| [references/skill-routing.md](references/skill-routing.md) | Need to choose among existing paper skills or resolve overlap |
-| [references/language-fusion.md](references/language-fusion.md) | Language pass, SCIWRITE + humanizer fusion, de-AI risk guard |
-| [references/audit-matrix-and-final-gate.md](references/audit-matrix-and-final-gate.md) | Goal/blast carpet audit, final gate, acceptance criteria, output templates |
+| [references/practical-revision-workflow.md](references/practical-revision-workflow.md) | Complete manuscript run, real-world revision sequence, stage transitions |
+| [references/modes-and-orchestration.md](references/modes-and-orchestration.md) | Goal regime, blast regime, model/auxiliary-reviewer coordination, working records |
+| [references/target-journal-calibration.md](references/target-journal-calibration.md) | Target journal supplied, latest guidance needed, recent same-journal paper survey |
+| [references/skill-routing.md](references/skill-routing.md) | Need to select among existing paper skills or resolve overlap |
+| [references/language-fusion.md](references/language-fusion.md) | Language pass, SCIWRITE + humanizer integration, de-AI risk safeguard |
+| [references/audit-matrix-and-final-gate.md](references/audit-matrix-and-final-gate.md) | Goal/blast comprehensive audit, final assessment, acceptance criteria, output templates |
 
-## Default Workflow
+## Standard Procedure
 
-When a target journal is supplied, first build a journal profile from current
-official guidance and recent comparable papers. For a full manuscript run, open
-`references/practical-revision-workflow.md` and follow its stage contracts. Then run:
+When a target journal is supplied, first construct a journal profile from current
+official guidance and recent comparable papers. For a complete manuscript run,
+consult `references/practical-revision-workflow.md` and follow its stage
+specifications. Then proceed as follows:
 
-1. **Orient and inventory**: identify available artifacts, missing evidence,
-   target constraints, and highest-risk issue.
-2. **Hard-risk triage**: rank risks by decision impact, not ease of editing.
-3. **Top-journal narrative spine**: use `top-journal-narrative-writing` as the
-   primary structure reference. Extract the factual contribution, diagnose the
-   current story pattern, compare alternative defensible narratives, and select
-   the strongest claim-evidence-boundary framing.
-4. **Section architecture**: after the top-journal narrative is chosen, use
-   `nature-writing` to implement title, abstract, introduction, related work,
-   methods, results, discussion, and conclusion structure before sentence
-   polishing.
-5. **Detail alignment**: check numbers, methods, baselines, figures, captions,
-   terminology, limitations, citations, data/code statements, and repository facts.
-6. **Language fusion pass**: only after the evidence spine is stable. Use
-   `nature-polishing` for section-level academic flow, then the SCIWRITE-style
-   `manuscript-writing-review` passes for clarity and precision, then
-   `humanizer_academic`/`academic-deai` to remove AI residue without meaning drift.
-7. **Package pass**: figures, citations, data availability, cover letter,
-   highlights, title page, reviewer response, or checklist as needed.
-8. **Verification gate**: compile/render/check artifacts when possible and
-   report checks that could not be run.
+1. **Orientation and inventory**: identify the available materials, missing
+   evidence, target constraints, and the highest-risk issue.
+2. **Risk prioritization**: rank risks by their impact on the manuscript's
+   acceptability, not by ease of editing.
+3. **Top-journal narrative structure**: use `top-journal-narrative-writing` as
+   the principal structural reference. Extract the factual contribution, diagnose
+   the current narrative pattern, compare alternative defensible narratives, and
+   select the strongest claim–evidence–boundary framing.
+4. **Section architecture**: once the narrative is chosen, use `nature-writing`
+   to structure the title, abstract, introduction, related work, methods,
+   results, discussion, and conclusion before sentence-level polishing.
+5. **Detail alignment**: verify numbers, methods, baselines, figures, captions,
+   terminology, limitations, citations, data and code statements, and repository
+   facts.
+6. **Integrated language pass**: undertaken only after the evidentiary structure
+   is stable. Use `nature-polishing` for section-level academic flow, then the
+   SCIWRITE-style `manuscript-writing-review` passes for clarity and precision,
+   and finally `humanizer_academic`/`academic-deai` to remove AI residue without
+   altering meaning.
+7. **Submission package**: prepare figures, citations, data-availability
+   statements, cover letter, highlights, title page, reviewer response, or
+   checklist as required.
+8. **Verification checkpoint**: compile, render, or otherwise check the materials
+   where possible, and report any checks that could not be performed.
 
-## Autonomous Loop
+## Iterative Revision Cycle
 
-Use in goal mode until the final gate passes or a real blocker is hit:
+Apply in the goal regime until the final assessment is satisfied or a genuine
+blocker is encountered:
 
 ```text
-1. Refresh journal/literature profile if target-specific context is stale.
-2. Run or update the carpet audit.
+1. Refresh the journal and literature profile if target-specific context has become outdated.
+2. Conduct or update the comprehensive audit.
 3. Select the highest unresolved P0/P1 issue.
-4. Edit or produce patchable replacement text.
-5. Verify evidence, numbers, citations, and section logic affected by the edit.
-6. Re-rank remaining issues.
+4. Edit the text or produce a discrete replacement passage.
+5. Verify the evidence, numbers, citations, and sectional logic affected by the revision.
+6. Re-rank the remaining issues.
 7. Repeat until no P0/P1 issues remain.
-8. Run prose/de-AI and formatting passes.
-9. Run final gate.
+8. Carry out the prose, de-AI, and formatting passes.
+9. Conduct the final assessment.
 ```
 
-Do not loop just to make prose "nicer". Repeat only when a concrete audit item
-remains unresolved or verification found a regression.
+Do not iterate merely to refine prose. Repeat only when a specific audit item
+remains unresolved or verification has revealed a regression.
 
-Priority queue:
+Priority scheme:
 
 ```text
-P0: evidence or claim breakage
+P0: failure of evidence or an unsupported claim
 P1: structural, journal-fit, or reviewer-risk issue
-P2: section/paragraph logic
-P3: sentence polish and de-AI
-P4: formatting and package hygiene
+P2: sectional or paragraph-level logic
+P3: sentence-level polishing and de-AI editing
+P4: formatting and submission-package consistency
 ```
 
-## Output Contract
+## Reporting Format
 
-Keep user-facing updates compact. For full runs, maintain detailed state in
+Keep author-facing updates concise. For complete runs, maintain detailed state in
 `paper_revision_work/` and summarize:
 
 ```text
@@ -169,12 +185,12 @@ Ready status: ready / mostly ready / not ready / blocked
 Passed checks:
 Remaining blockers:
 Manual author checks:
-Files changed or delivered:
 ```
 
 ## When Not to Use
 
-Do not use this orchestrator for a single isolated specialist task, such as
-downloading one paper, making one selected-backend figure, converting a
-bibliography file, or translating one article for reading only. Use the
-specialist skill directly unless the task is part of a manuscript revision run.
+This skill should not be used for a single, isolated specialist task — for
+example, downloading one paper, producing a single figure in a chosen backend,
+converting a bibliography file, or translating one article for reading only. In
+such cases, use the relevant specialist skill directly, unless the task forms
+part of a complete manuscript revision.
