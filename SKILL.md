@@ -98,6 +98,7 @@ Consult only the files relevant to the current stage:
 | [references/target-journal-calibration.md](references/target-journal-calibration.md) | Target journal supplied, latest guidance needed, recent same-journal paper survey |
 | [references/skill-routing.md](references/skill-routing.md) | Need to select among existing paper skills or resolve overlap |
 | [references/language-fusion.md](references/language-fusion.md) | Language pass, SCIWRITE + humanizer integration, de-AI risk safeguard |
+| [references/engineering-terminology.md](references/engineering-terminology.md) | Engineering-to-academic terminology pass for AI→medicine manuscripts |
 | [references/audit-matrix-and-final-gate.md](references/audit-matrix-and-final-gate.md) | Goal/blast comprehensive audit, final assessment, acceptance criteria, output templates |
 
 ## Standard Procedure
@@ -121,7 +122,12 @@ specifications. Then proceed as follows:
 5. **Detail alignment**: verify numbers, methods, baselines, figures, captions,
    terminology, limitations, citations, data and code statements, and repository
    facts.
-6. **Integrated language pass**: undertaken only after the evidentiary structure
+6. **Engineering-terminology pass** (conditional): when the manuscript comes
+   from AI/engineering practice and targets medical-informatics or biomedical
+   journals, run `scripts/scan_engineering_terms.py` to detect and replace
+   engineering jargon ("checkpoint", "cell", "gate", "flip rate") with academic
+   equivalents. See `references/engineering-terminology.md` for the glossary.
+7. **Integrated language pass**: undertaken only after the evidentiary structure
    is stable. Use `nature-polishing` for section-level academic flow, then the
    SCIWRITE-style `manuscript-writing-review` passes for clarity and precision,
    and finally `humanizer_academic`/`academic-deai` to remove AI residue without

@@ -7,9 +7,17 @@ claims are stable.
 The sequence is:
 
 ```text
-nature-polishing -> manuscript-writing-review (SCIWRITE) ->
+engineering-terminology -> nature-polishing -> manuscript-writing-review (SCIWRITE) ->
 humanizer_academic -> academic-deai safeguard
 ```
+
+The `engineering-terminology` pass is inserted first when the manuscript
+originates from AI/engineering practice (Hugging Face, GitHub) and targets
+biomedical informatics or medical AI journals. It replaces informal engineering
+jargon—"checkpoint", "cell", "gate", "flip rate"—with rigorous academic
+terminology before the prose-level passes begin. See
+[`engineering-terminology.md`](engineering-terminology.md) for the glossary,
+severity levels, and scanner usage.
 
 This pass must not be used to disguise weak reasoning, unsupported claims,
 missing evidence, or a mismatch with the journal.

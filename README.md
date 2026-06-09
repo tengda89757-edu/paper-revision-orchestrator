@@ -15,8 +15,9 @@ existing manuscript.
 - compiles a claim–evidence–boundary register;
 - prioritizes top-journal narrative structure before sentence-level polishing;
 - assigns each stage to the most suitable specialist skill;
-- integrates Nature-style polishing, SCIWRITE clarity, AI-residue detection, and
-  academic de-AI safeguards;
+- integrates Nature-style polishing, SCIWRITE clarity, AI-residue detection,
+  academic de-AI safeguards, and engineering-to-academic terminology normalization
+  for AI→medicine manuscripts;
 - conducts technical review and high-confidence proofing checks before final
   delivery;
 - records its progress in `paper_revision_work/` during goal and blast runs.
@@ -68,6 +69,9 @@ For parallel review:
 - `scripts/proofing_scan.py`: a high-confidence proofing scan for duplicated
   punctuation, malformed text adjacent to equations, capitalization issues, and
   selected patterns of technical ambiguity.
+- `scripts/scan_engineering_terms.py`: scans manuscripts for engineering jargon
+  ("checkpoint", "cell", "gate", "flip rate") and suggests academic replacements
+  suitable for biomedical informatics journals.
 
 ## Attribution
 
