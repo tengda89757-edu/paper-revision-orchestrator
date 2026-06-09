@@ -17,7 +17,7 @@ or `not-applicable`.
 | Results | section claims, numbers, tables, figures, baselines, ablations, robustness, uncertainty |
 | Discussion | interpretation, relation to prior work, limitations, practical/theoretical scope |
 | Citations | source support, primary vs secondary sources, missing recent work, citation formatting |
-| Figures/tables | panel logic, caption claims, visual hierarchy, source data, export/readability |
+| Figures/tables | panel logic, caption claims, visual hierarchy, source data, export/readability, consistent style and color palette, fixed color semantics (one color = one meaning, no reuse), figure count and displayed values consistent with the manuscript |
 | Data/code | availability statement, repositories, identifiers, restrictions, FAIR metadata |
 | Language | section flow, redundancy, passive voice, sentence structure, terminology, numerical/citation consistency, AI residue, meaning-preservation safeguard |
 | Technical proofing | notation drift, undefined symbols, equation-adjacent grammar, duplicated punctuation, reference-list glitches, implementation-facing ambiguity |
