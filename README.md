@@ -1,24 +1,27 @@
 # Paper Revision Orchestrator
 
-Codex skill for target-journal-driven academic manuscript revision.
+A Codex skill for target-journal-driven revision of academic manuscripts.
 
-This skill coordinates specialist paper-writing, review, citation, figure,
-data-availability, reviewer-response, and language-polishing skills into one
-practical workflow for revising an existing manuscript.
+This skill coordinates specialist skills for manuscript writing, review,
+citation, figure preparation, data-availability statements, reviewer response,
+and language polishing into a single, coherent procedure for revising an
+existing manuscript.
 
-## What it does
+## Function
 
-- discovers manuscript artifacts in a local paper workspace;
-- calibrates against current target-journal guidance and recent comparable papers;
-- builds a claim-evidence-boundary ledger;
-- prioritizes top-journal narrative structure before sentence polishing;
-- routes each stage to the strongest available specialist skill;
-- fuses Nature-style polishing, SCIWRITE clarity, AI-residue detection, and
-  academic de-AI safety checks;
-- runs technical review and high-confidence proofing checks before final delivery;
-- tracks work in `paper_revision_work/` during goal/blast runs.
+- identifies manuscript materials within a local workspace;
+- calibrates the manuscript against current target-journal guidance and recent
+  comparable papers;
+- compiles a claim–evidence–boundary register;
+- prioritizes top-journal narrative structure before sentence-level polishing;
+- assigns each stage to the most suitable specialist skill;
+- integrates Nature-style polishing, SCIWRITE clarity, AI-residue detection, and
+  academic de-AI safeguards;
+- conducts technical review and high-confidence proofing checks before final
+  delivery;
+- records its progress in `paper_revision_work/` during goal and blast runs.
 
-## Best prompt
+## Recommended prompt
 
 ```text
 使用 paper-revision-orchestrator
@@ -46,25 +49,25 @@ For parallel review:
 
 ## Workflow
 
-1. Workspace discovery and safety
+1. Workspace survey and safeguards
 2. Target-journal and recent-paper calibration
 3. Evidence and claim audit
 4. Top-journal narrative and structure
 5. Section-by-section manuscript revision
 6. Details: numbers, citations, figures, data/code
-7. Language fusion
+7. Integrated language pass
 8. Technical review and micro-proofing
 9. Submission/rebuttal package
-10. Final verification gate
+10. Final verification checkpoint
 
 ## Included scripts
 
-- `scripts/discover_paper_artifacts.py`: scans a manuscript workspace for likely
-  manuscript files, bibliography, figures, result tables, supplements, and
-  reviewer-response artifacts.
-- `scripts/proofing_scan.py`: high-confidence proofing scan for duplicated
-  punctuation, equation-adjacent malformed text, capitalization issues, and
-  selected technical ambiguity patterns.
+- `scripts/discover_paper_artifacts.py`: surveys a manuscript workspace for
+  likely manuscript files, bibliography, figures, result tables, supplements,
+  and reviewer-response materials.
+- `scripts/proofing_scan.py`: a high-confidence proofing scan for duplicated
+  punctuation, malformed text adjacent to equations, capitalization issues, and
+  selected patterns of technical ambiguity.
 
 ## Attribution
 
@@ -73,8 +76,8 @@ For parallel review:
 which is licensed under CC BY 4.0. This repository keeps attribution in the
 script header and this README.
 
-Other workflow files were created for Codex manuscript-revision orchestration
-and are intended to be adapted for local academic-writing workflows.
+The remaining workflow files were created to coordinate manuscript revision in
+Codex and are intended for adaptation to local academic-writing workflows.
 
 ## Install
 

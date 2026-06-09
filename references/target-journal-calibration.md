@@ -1,6 +1,7 @@
 # Target-Journal Calibration
 
-Run whenever a target journal is supplied before full-manuscript rewriting.
+Perform whenever a target journal is supplied, before any complete rewrite of the
+manuscript.
 
 ## Source Hierarchy
 
@@ -10,10 +11,10 @@ Run whenever a target journal is supplied before full-manuscript rewriting.
 3. Recent comparable papers from the target journal.
 4. Field standards and specialist guidelines.
 
-For "latest", "recent", "current", "today", or final submission advice, browse
-and cite sources with retrieval dates. Do not rely on memory.
+For "latest", "recent", "current", "today", or final-submission advice, consult
+and cite sources with their retrieval dates. Do not rely on memory.
 
-## Search Plan
+## Search Strategy
 
 Use focused searches:
 
@@ -26,14 +27,15 @@ site:[publisher-domain] "[journal]" "[article type]" "abstract"
 
 For recent comparator papers:
 
-- start with 5-12 papers from the last 12-24 months;
-- extend to 36 months if few comparable papers exist;
-- prefer same article type, method family, field, or data modality;
-- avoid copying wording; extract structure, evidence threshold, and positioning.
+- begin with 5–12 papers from the past 12–24 months;
+- extend to 36 months where few comparable papers exist;
+- prefer the same article type, method family, field, or data modality;
+- do not copy wording; extract the structure, evidence threshold, and
+  positioning.
 
 ## Journal Profile
 
-Write `paper_revision_work/journal_profile.md`:
+Record `paper_revision_work/journal_profile.md`:
 
 ```text
 Target journal:
@@ -56,9 +58,9 @@ Desk-reject risks:
 Open uncertainties:
 ```
 
-## How to Use Recent Papers
+## Using Recent Papers
 
-Use recent papers to calibrate:
+Use recent papers to calibrate the following:
 
 - how narrowly the journal frames novelty;
 - how abstracts balance problem, method, quantitative evidence, and boundary;
@@ -67,4 +69,5 @@ Use recent papers to calibrate:
 - how limitations are worded;
 - how data/code availability and supplementary material are handled.
 
-Do not use recent papers to justify unsupported claims in the user's paper.
+Do not use recent papers to justify unsupported claims in the author's
+manuscript.

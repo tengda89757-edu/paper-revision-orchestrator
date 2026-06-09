@@ -1,23 +1,24 @@
-# Skill Routing
+# Skill Selection
 
-Use the smallest specialist layer that matches the current failure mode.
+Use the smallest specialist component that addresses the current shortcoming.
 
-Specialist skills are used as upstream stage owners. This orchestrator does not
-patch their source files by default; it adds ordering, handoff contracts, state
-tracking, and conflict resolution for real manuscript revision runs.
+The specialist skills act as the components responsible for the upstream stages.
+This skill does not modify their source files by default; it supplies ordering,
+transition specifications, state tracking, and conflict resolution for
+substantive manuscript revision.
 
-| Failure mode or task | Prefer these skills |
+| Shortcoming or task | Preferred skills |
 |---|---|
 | Overall revision, evidence audit, major revision, rebuttal, paper rescue | `paper-refinement-trinity-v2` |
-| Long-horizon pipeline, repository fidelity, reporting guideline, final gate | `goal-driven-academic-papers` or `academic-research-suite` |
+| Long-horizon procedure, repository fidelity, reporting guideline, final assessment | `goal-driven-academic-papers` or `academic-research-suite` |
 | Target-journal requirements, desk-reject risk, cover letter, highlights | `sci-pre-submission-prep`, plus current web verification |
-| Paper structure, top-journal story, contribution positioning, title/abstract/intro framing | `top-journal-narrative-writing`, then `nature-writing` |
+| Paper structure, top-journal narrative, contribution positioning, title/abstract/intro framing | `top-journal-narrative-writing`, then `nature-writing` |
 | Section drafting or rebuilding from claims, figures, notes, or Chinese drafts | `nature-writing` |
 | Nature-leaning academic polish and section-level prose repair | `nature-polishing` |
-| Sentence clarity, clutter, passive voice, terminology, numerical consistency | `manuscript-writing-review` as SCIWRITE precision layer |
+| Sentence clarity, redundancy, passive voice, terminology, numerical consistency | `manuscript-writing-review` as SCIWRITE precision layer |
 | English de-AI academic editing without meaning drift | `humanizer_academic` + `academic-deai` |
 | Chinese academic de-AI editing | `academic-deai-zh` |
-| Medical-paper AI-writing residue | `humanizer_academic`, with `academic-deai` safety guard |
+| Medical-paper AI-writing residue | `humanizer_academic`, with `academic-deai` safeguard |
 | Literature discovery, paper download, paper reading | `paper-search`, `nature-academic-search`, `nature-reader` |
 | Citation support for manuscript statements or CNS/Nature-family references | `nature-citation` |
 | Publication figures, multi-panel plots, figure logic, export QA | `nature-figure` |
@@ -27,44 +28,45 @@ tracking, and conflict resolution for real manuscript revision runs.
 | Medical systematic review or meta-analysis | `medical-meta-analysis-writing` |
 | AI + empirical repo-to-paper checking, outline, fidelity verification | `ai-empirical-repo-checker`, `ai-empirical-outline-synthesizer`, `ai-empirical-fidelity-verifier` |
 
-## Overlap Rules
+## Resolving Overlap
 
-- Default direct-revision executor: `paper-refinement-trinity-v2`.
-- Default structure/narrative reference: `top-journal-narrative-writing`.
-  Treat paper structure as a top-journal narrative problem before treating it as
-  a section-formatting problem.
-- Use `goal-driven-academic-papers` when the task spans multiple rounds or needs
-  a final criterion-by-criterion gate.
+- Default component for direct revision: `paper-refinement-trinity-v2`.
+- Default reference for structure and narrative: `top-journal-narrative-writing`.
+  Treat manuscript structure as a question of top-journal narrative before
+  treating it as one of section formatting.
+- Use `goal-driven-academic-papers` when the task spans multiple rounds or
+  requires a final, criterion-by-criterion assessment.
 - Use `top-journal-narrative-writing` before `nature-writing` and
-  `nature-polishing` when the task touches manuscript structure, title,
-  abstract, introduction, discussion, contribution framing, or reviewer-facing
-  story.
-- Use `nature-writing` before `manuscript-writing-review` when a section needs
-  rebuilding, not local cleanup.
-- For English language polishing, use the fused language pass:
+  `nature-polishing` when the task concerns manuscript structure, title,
+  abstract, introduction, discussion, contribution framing, or the
+  reviewer-facing narrative.
+- Use `nature-writing` before `manuscript-writing-review` when a section requires
+  rebuilding rather than local correction.
+- For English language polishing, use the integrated language pass:
   `nature-polishing` for section flow, `manuscript-writing-review` for SCIWRITE
-  clarity/precision, `humanizer_academic` for AI-pattern detection, and
-  `academic-deai` as the meaning-preservation safety guard.
+  clarity and precision, `humanizer_academic` for the detection of AI patterns,
+  and `academic-deai` as the meaning-preservation safeguard.
 - Use `academic-deai-zh` for Chinese academic text. Do not use de-AI editing to
-  hide weak reasoning.
-- Use `nature-figure` only for figure tasks. Respect its backend gate: if Python
-  or R is not chosen, ask that question and stop figure generation.
-- Use `sci-pre-submission-prep` only for target-journal submission package work
+  disguise weak reasoning.
+- Use `nature-figure` only for figure tasks. Respect its backend requirement: if
+  neither Python nor R has been chosen, pose that question and halt figure
+  generation.
+- Use `sci-pre-submission-prep` only for target-journal submission-package work
   or journal-specific desk-reject risk checks.
 
-## Routing Priority
+## Order of Precedence
 
-When several skills apply, choose in this order:
+When several skills apply, select in the following order:
 
 ```text
-evidence/reviewer risk -> target-journal fit -> top-journal narrative spine ->
-section architecture -> details/numbers/citations/figures -> fused language pass ->
+evidence/reviewer risk -> target-journal fit -> top-journal narrative structure ->
+section architecture -> details/numbers/citations/figures -> integrated language pass ->
 format/submission package
 ```
 
-## Stage Owners
+## Components by Stage
 
-| Stage | Primary owner | Secondary support |
+| Stage | Primary component | Secondary support |
 |---|---|---|
 | Artifact discovery | `discover_paper_artifacts.py` | local `rg/find/ls` |
 | Journal calibration | `sci-pre-submission-prep` | `target-journal-calibration.md`, web verification |
@@ -80,20 +82,24 @@ format/submission package
 | Reviewer response | `nature-response` | `paper-refinement-trinity-v2` |
 | Final submission package | `sci-pre-submission-prep` | `audit-matrix-and-final-gate.md` |
 
-## Top-Journal Structure Protocol
+## Top-Journal Structure Procedure
 
-For structure work, apply `top-journal-narrative-writing` in this order:
+For structural work, apply `top-journal-narrative-writing` in the following
+order:
 
 1. Extract the factual contribution:
-   research object, dominant view/method/assumption, concrete gap or failure
-   mode, new contribution, main evidence, scope and limitations.
-2. Diagnose the current story pattern:
+   research object, dominant view/method/assumption, a concrete gap or
+   limitation, the new contribution, the main evidence, and the scope and
+   limitations.
+2. Diagnose the current narrative pattern:
    incremental improvement, method-first, application-only, result-only,
    isolated contribution, or other.
-3. Generate 3-5 narrative options only if the evidence can support them:
-   assumption challenge, problem-driven method, application-to-principle,
+3. Generate three to five narrative options only where the evidence can support
+   them: assumption challenge, problem-driven method, application-to-principle,
    result-to-explanation, reliability/generalization, or field-enabling resource.
-4. Build a claim-evidence-boundary table for the strongest 1-2 narratives.
-5. Select one primary narrative and one backup narrative by importance, novelty,
-   evidence strength, scope control, reviewer plausibility, and target-journal fit.
-6. Only then use `nature-writing` to implement section-level architecture.
+4. Construct a claim–evidence–boundary table for the strongest one or two
+   narratives.
+5. Select one primary and one secondary narrative according to importance,
+   novelty, strength of evidence, control of scope, plausibility to reviewers,
+   and fit with the target journal.
+6. Only then use `nature-writing` to implement the section-level architecture.

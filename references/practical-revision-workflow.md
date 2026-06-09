@@ -1,33 +1,35 @@
 # Practical Revision Workflow
 
-Use this file for real manuscript modification runs. It turns the specialist
-skills into a practical pipeline with stage inputs, outputs, handoffs, and stop
-conditions.
+This reference applies to substantive manuscript revision. It organizes the
+specialist skills into a practical procedure, specifying the inputs, outputs,
+transitions, and termination conditions of each stage.
 
-The orchestrator should not rewrite specialist skills internally. It should use
-them as stage owners and add the missing coordination layer: what to do first,
-what artifact to produce, and what must be true before moving on.
+This skill should not rewrite the specialist skills internally. It should treat
+each as the component responsible for a given stage and supply the coordinating
+layer that they lack: what to undertake first, what material to produce, and
+what conditions must hold before proceeding.
 
-## Full Pipeline
+## Complete Procedure
 
 ```text
-0. Workspace discovery and safety
+0. Workspace survey and safeguards
 1. Target-journal and recent-paper calibration
 2. Evidence and claim audit
 3. Top-journal narrative and structure
 4. Section-by-section manuscript revision
 5. Details: numbers, citations, figures, data/code
-6. Language fusion
+6. Integrated language pass
 7. Technical review and micro-proofing
 8. Submission/rebuttal package
-9. Final verification gate
+9. Final verification checkpoint
 ```
 
-## Stage Contracts
+## Stage Specifications
 
-### 0. Workspace discovery and safety
+### 0. Workspace survey and safeguards
 
-Owner: `discover_paper_artifacts.py` plus local file tools.
+Responsible component: `discover_paper_artifacts.py`, together with local file
+tools.
 
 Inputs:
 
@@ -38,15 +40,19 @@ Inputs:
 Outputs:
 
 - `paper_revision_work/artifacts.json`;
-- selected primary manuscript or one blocking question if ambiguous;
-- edit strategy: direct edit, patch text, tracked-change workflow, or chat-only.
+- the selected primary manuscript, or a single clarifying question where the
+  choice is ambiguous;
+- an editing strategy: direct editing, replacement passages, tracked changes, or
+  discussion only.
 
-Exit when the primary manuscript and available support artifacts are known.
+Conclude this stage once the primary manuscript and the available supporting
+materials have been identified.
 
 ### 1. Target-journal and recent-paper calibration
 
-Owner: `sci-pre-submission-prep` plus `target-journal-calibration.md`.
-Support: `nature-academic-search`, `paper-search`.
+Responsible component: `sci-pre-submission-prep`, together with
+`target-journal-calibration.md`.
+Supporting components: `nature-academic-search`, `paper-search`.
 
 Inputs:
 
@@ -57,18 +63,18 @@ Inputs:
 Outputs:
 
 - `journal_profile.md`;
-- recent comparator set;
+- a set of recent comparator papers;
 - target-specific desk-reject risks;
-- hard formatting/reporting/data requirements.
+- mandatory formatting, reporting, and data requirements.
 
-Exit when current official guidance and a usable recent-paper profile exist.
-If browsing or sources are unavailable, mark residual risk and continue only with
-provisional journal claims.
+Conclude this stage once current official guidance and a usable recent-paper
+profile are available. If browsing or sources are unavailable, record the
+residual risk and proceed only with provisional claims about the journal.
 
 ### 2. Evidence and claim audit
 
-Owner: `paper-refinement-trinity-v2`.
-Support: `goal-driven-academic-papers`.
+Responsible component: `paper-refinement-trinity-v2`.
+Supporting component: `goal-driven-academic-papers`.
 
 Inputs:
 
@@ -79,62 +85,64 @@ Inputs:
 Outputs:
 
 - `claim_ledger.md`;
-- P0 evidence breaks;
-- unsupported or overstrong claims to weaken/delete;
-- smallest useful missing analyses or experiments.
+- P0 evidence failures;
+- unsupported or overstated claims to be qualified or removed;
+- the smallest useful set of missing analyses or experiments.
 
-Exit when Abstract/Introduction/Results/Discussion claims have status:
-`supported`, `weak but bounded`, or `needs-author`. Do not proceed to structure
-polish while unsupported central claims remain strong.
+Conclude this stage once the claims in the Abstract, Introduction, Results, and
+Discussion carry a status of `supported`, `weak but bounded`, or `needs-author`.
+Do not proceed to structural revision while unsupported central claims remain
+stated strongly.
 
 ### 3. Top-journal narrative and structure
 
-Owner: `top-journal-narrative-writing`.
-Support: `nature-writing`.
+Responsible component: `top-journal-narrative-writing`.
+Supporting component: `nature-writing`.
 
 Inputs:
 
 - factual contribution;
-- claim ledger;
+- claim register;
 - journal profile;
 - recent comparator papers.
 
 Outputs:
 
-- current story diagnosis;
-- 3-5 defensible narrative options when useful;
-- selected primary and backup narrative;
-- claim-evidence-boundary table;
-- title/abstract/introduction/discussion plan.
+- a diagnosis of the current narrative;
+- three to five defensible narrative options where useful;
+- a selected primary and secondary narrative;
+- a claim–evidence–boundary table;
+- a plan for the title, abstract, introduction, and discussion.
 
-Exit when the primary narrative is defensible, evidence-bounded, and target-fit.
-Then use `nature-writing` to implement section architecture.
+Conclude this stage once the primary narrative is defensible, bounded by the
+evidence, and suited to the target journal. Then use `nature-writing` to
+implement the section architecture.
 
 ### 4. Section-by-section manuscript revision
 
-Owner: `nature-writing`.
-Support: `paper-refinement-trinity-v2`, `nature-polishing`.
+Responsible component: `nature-writing`.
+Supporting components: `paper-refinement-trinity-v2`, `nature-polishing`.
 
 Inputs:
 
 - selected narrative;
 - section plans;
-- claim ledger;
+- claim register;
 - manuscript source.
 
 Outputs:
 
 - revised title, abstract, introduction, related work, methods, results,
   discussion, and conclusion as needed;
-- section-level edit log;
+- a section-level record of edits;
 - unresolved author placeholders.
 
-Exit when each revised section has a clear job and all major claims remain tied
-to evidence.
+Conclude this stage once each revised section has a clear purpose and all major
+claims remain tied to evidence.
 
 ### 5. Details: numbers, citations, figures, data/code
 
-Owners:
+Responsible components:
 
 - numbers/details: `manuscript-writing-review` precision checks;
 - citations: `nature-citation`, `nature-academic-search`, `paper-search`;
@@ -151,41 +159,43 @@ Inputs:
 
 Outputs:
 
-- citation gap list and support-grade notes;
-- number/caption/source-data mismatch list;
-- figure/table logic fixes;
+- a list of citation gaps with notes on the strength of support;
+- a list of mismatches among numbers, captions, and source data;
+- corrections to figure and table logic;
 - Data Availability and code/materials statements;
 - updated `revision_queue.md`.
 
-Exit when no known number, citation, figure, or data/code mismatch remains
-unresolved except marked author checks.
+Conclude this stage once no known mismatch in numbers, citations, figures, or
+data and code remains unresolved, except for those marked as author checks.
 
-### 6. Language fusion
+### 6. Integrated language pass
 
-Owner: `language-fusion.md`.
-Specialists: `nature-polishing`, `manuscript-writing-review`,
+Responsible component: `language-fusion.md`.
+Specialist components: `nature-polishing`, `manuscript-writing-review`,
 `humanizer_academic`, `academic-deai`, `academic-deai-zh`.
 
 Inputs:
 
-- structurally stable manuscript;
-- claim ledger;
-- section-level edit log.
+- a structurally stable manuscript;
+- claim register;
+- section-level record of edits.
 
 Outputs:
 
 - revised prose;
-- language pass report;
-- skipped high-risk edits;
+- a report on the language pass;
+- any high-risk edits that were not made;
 - remaining AI residue or manual checks.
 
-Exit when clarity improves without strengthening claims, altering citation
-relationships, changing numbers, or flattening technical meaning.
+Conclude this stage once clarity has improved without strengthening claims,
+altering citation relationships, changing numbers, or flattening technical
+meaning.
 
 ### 7. Technical review and micro-proofing
 
-Owner: `paper-review` protocol from `tengda89757-edu/sciwrite` when available.
-Support: `proofing_scan.py`, `manuscript-writing-review`,
+Responsible component: the `paper-review` protocol from
+`tengda89757-edu/sciwrite`, where available.
+Supporting components: `proofing_scan.py`, `manuscript-writing-review`,
 `paper-refinement-trinity-v2`.
 
 Inputs:
@@ -196,12 +206,13 @@ Inputs:
 
 Outputs:
 
-- technical/proofing risk list;
-- proofing-scan hits in `paper_revision_work/proofing_scan.txt`;
-- fixes for high-confidence issues only.
+- a list of technical and proofing risks;
+- proofing-scan matches in `paper_revision_work/proofing_scan.txt`;
+- corrections for high-confidence issues only.
 
-Run when the manuscript has equations, derivations, implementation formulas,
-dense technical prose, appendices, or final submission proofing needs.
+Apply this stage when the manuscript contains equations, derivations,
+implementation formulas, dense technical prose, or appendices, or when
+final-submission proofing is required.
 
 Use:
 
@@ -209,14 +220,16 @@ Use:
 python scripts/proofing_scan.py <pdf-or-text-like-file> --max-hits 80 --out paper_revision_work/proofing_scan.txt
 ```
 
-Spot-check every script hit before treating it as a real issue.
+Manually verify each match reported by the script before treating it as a
+genuine issue.
 
-Exit when high-confidence proofing defects and technical-review blockers are
-fixed, marked `needs-author`, or explicitly out of scope.
+Conclude this stage once high-confidence proofing defects and technical-review
+blockers have been corrected, marked `needs-author`, or explicitly placed out of
+scope.
 
 ### 8. Submission/rebuttal package
 
-Owners:
+Responsible components:
 
 - submission package: `sci-pre-submission-prep`;
 - reviewer response: `nature-response`;
@@ -231,21 +244,21 @@ Inputs:
 Outputs:
 
 - cover letter, highlights, title-page checklist, reporting checklist;
-- response matrix and point-by-point response when reviews exist;
-- manuscript-change checklist.
+- a response matrix and point-by-point response where reviews exist;
+- a checklist of manuscript changes.
 
-Exit when every package claim maps to manuscript evidence or a justified
-placeholder.
+Conclude this stage once every claim in the package maps to manuscript evidence
+or to a justified placeholder.
 
-### 9. Final verification gate
+### 9. Final verification checkpoint
 
-Owner: `audit-matrix-and-final-gate.md`.
-Support: relevant specialist skills.
+Responsible component: `audit-matrix-and-final-gate.md`.
+Supporting components: the relevant specialist skills.
 
 Inputs:
 
 - final manuscript and package;
-- all work artifacts.
+- all working records.
 
 Outputs:
 
@@ -253,11 +266,11 @@ Outputs:
 - final status: `ready`, `mostly ready`, `not ready`, or `blocked`;
 - manual author checks.
 
-Exit only when the status is explicit and the residual risks are visible.
+Conclude only when the status is explicit and the residual risks are visible.
 
-## Optimization Rule
+## Reuse Principle
 
-If a specialist skill already contains a strong rule, use it directly rather
-than rewriting it in the orchestrator. Add orchestration only where the real
-workflow needs handoffs, ordering, state tracking, or cross-stage conflict
-resolution.
+Where a specialist skill already provides a sound rule, apply it directly rather
+than restating it here. Add coordination only where the revision genuinely
+requires transitions, ordering, state tracking, or the resolution of conflicts
+between stages.
