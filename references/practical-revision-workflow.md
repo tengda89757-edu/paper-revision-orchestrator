@@ -213,6 +213,12 @@ Outputs:
   scanner);
 - list of unresolved terminology decisions requiring author input.
 
+Conclude this stage once no critical or major engineering-terminology hits
+remain unaddressed, required abbreviations are defined before first use, and
+any unresolved author decisions are recorded. Completion is judged by the
+terminology cross-check in `references/engineering-terminology.md`, not solely
+by the existence of a scan report.
+
 Do not use this pass to disguise weak evidence or unsupported claims.
 
 #### 6b. Integrated language pass
