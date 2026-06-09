@@ -21,7 +21,7 @@ substantive manuscript revision.
 | Medical-paper AI-writing residue | `humanizer_academic`, with `academic-deai` safeguard |
 | Literature discovery, paper download, paper reading | `paper-search`, `nature-academic-search`, `nature-reader` |
 | Citation support for manuscript statements or CNS/Nature-family references | `nature-citation` |
-| Publication figures, multi-panel plots, figure logic, export QA | `nature-figure` |
+| Publication figures, multi-panel plots, figure logic, style and color-scheme consistency, export QA | `nature-figure` |
 | Data availability, FAIR metadata, repository and dataset citation plan | `nature-data` |
 | SCI/SSCI target-journal alignment, cover letter, highlights, final submission | `sci-pre-submission-prep` |
 | Point-by-point reviewer response package | `nature-response` |

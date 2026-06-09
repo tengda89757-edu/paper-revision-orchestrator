@@ -44,7 +44,7 @@ for the final edits.
 | Evidence Auditor | manuscript claims against source materials | claim register, numerical mismatches, unsupported claims |
 | Structure Architect | manuscript architecture | title/abstract/intro/results/discussion diagnosis |
 | Language Reviewer | prose and de-AI editing | paragraph flow, redundancy, terminology, AI residue |
-| Figure/Data Inspector | figures, captions, source data, availability | figure/data risk list |
+| Figure/Data Inspector | figures, captions, source data, availability | figure/data risk list, with checks on style and color-scheme consistency, fixed color semantics (one color = one meaning), and agreement between figure counts/values and the manuscript |
 | Rebuttal Strategist | reviews and response package | reviewer matrix, traceability gaps |
 
 Integrate the findings into the P0–P4 priority scheme. Verified manuscript
