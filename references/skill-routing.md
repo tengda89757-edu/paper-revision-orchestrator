@@ -16,6 +16,7 @@ substantive manuscript revision.
 | Section drafting or rebuilding from claims, figures, notes, or Chinese drafts | `nature-writing` |
 | Nature-leaning academic polish and section-level prose repair | `nature-polishing` |
 | Sentence clarity, redundancy, passive voice, terminology, numerical consistency | `manuscript-writing-review` as SCIWRITE precision layer |
+| Engineering-to-academic terminology replacement for AI→medicine manuscripts | `engineering-to-academic` before the integrated language pass; `scripts/scan_engineering_terms.py` as fallback or residual scan |
 | English de-AI academic editing without meaning drift | `humanizer_academic` + `academic-deai` |
 | Chinese academic de-AI editing | `academic-deai-zh` |
 | Medical-paper AI-writing residue | `humanizer_academic`, with `academic-deai` safeguard |
@@ -43,9 +44,11 @@ substantive manuscript revision.
 - Use `nature-writing` before `manuscript-writing-review` when a section requires
   rebuilding rather than local correction.
 - For English language polishing, use the integrated language pass:
-  `nature-polishing` for section flow, `manuscript-writing-review` for SCIWRITE
-  clarity and precision, `humanizer_academic` for the detection of AI patterns,
-  and `academic-deai` as the meaning-preservation safeguard.
+  `engineering-to-academic` first when the manuscript originates from AI/engineering
+  practice and targets biomedical journals, then `nature-polishing` for section
+  flow, `manuscript-writing-review` for SCIWRITE clarity and precision,
+  `humanizer_academic` for the detection of AI patterns, and `academic-deai` as
+  the meaning-preservation safeguard.
 - Use `academic-deai-zh` for Chinese academic text. Do not use de-AI editing to
   disguise weak reasoning.
 - Use `nature-figure` only for figure tasks. Respect its backend requirement: if
@@ -77,6 +80,7 @@ format/submission package
 | Figures and tables | `nature-figure` | `paper-refinement-trinity-v2` evidence logic |
 | Data/code availability | `nature-data` | target journal policy |
 | Language precision | `manuscript-writing-review` | `nature-polishing` |
+| Engineering-to-academic terminology | `engineering-to-academic` | `references/engineering-terminology.md`, `scripts/scan_engineering_terms.py` |
 | AI residue / humanization | `humanizer_academic` | `academic-deai` / `academic-deai-zh` |
 | Technical review and micro-proofing | `paper-review` protocol from `tengda89757-edu/sciwrite` when available | `proofing_scan.py`, `paper-refinement-trinity-v2` |
 | Reviewer response | `nature-response` | `paper-refinement-trinity-v2` |

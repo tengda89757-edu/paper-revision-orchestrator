@@ -69,9 +69,11 @@ For parallel review:
 - `scripts/proofing_scan.py`: a high-confidence proofing scan for duplicated
   punctuation, malformed text adjacent to equations, capitalization issues, and
   selected patterns of technical ambiguity.
-- `scripts/scan_engineering_terms.py`: scans manuscripts for engineering jargon
-  ("checkpoint", "cell", "gate", "flip rate") and suggests academic replacements
-  suitable for biomedical informatics journals.
+- `scripts/scan_engineering_terms.py`: fallback scanner for engineering jargon
+  ("checkpoint", "cell", "gate", "flip rate") that suggests academic replacements
+  suitable for biomedical informatics journals. It loads the canonical glossary
+  from the `engineering-to-academic` skill when available, and falls back to an
+  embedded glossary otherwise.
 
 ## Attribution
 

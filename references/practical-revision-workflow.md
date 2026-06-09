@@ -18,7 +18,7 @@ what conditions must hold before proceeding.
 3. Top-journal narrative and structure
 4. Section-by-section manuscript revision
 5. Details: numbers, citations, figures, data/code
-6. Integrated language pass
+6. Conditional engineering-terminology pass and integrated language pass
 7. Technical review and micro-proofing
 8. Submission/rebuttal package
 9. Final verification checkpoint
@@ -173,15 +173,57 @@ Conclude this stage once no known mismatch in numbers, citations, figures, or
 data and code remains unresolved, except for those marked as author checks, and
 once all figures share a consistent style and a fixed color encoding.
 
-### 6. Integrated language pass
+### 6. Conditional engineering-terminology pass and integrated language pass
 
-Responsible component: `language-fusion.md`.
+This stage has two ordered parts.
+
+#### 6a. Engineering-terminology pass (conditional)
+
+Apply when the manuscript originates from AI/engineering practice (Hugging Face,
+GitHub) and targets biomedical informatics, medical AI, or clinical NLP
+journals.
+
+Responsible component: `engineering-to-academic` skill.  
+Supporting component: `scripts/scan_engineering_terms.py` for quick detection
+or residual scanning when the skill is unavailable; `references/engineering-terminology.md`
+for the protocol and glossary.
+
+Inputs:
+
+- revised manuscript after structural and evidentiary revision;
+- confirmation that the target journal's readership expects biomedical academic
+  register rather than engineering register.
+
+Procedure:
+
+1. Invoke the `engineering-to-academic` skill to run its glossary-based scan
+   and replacement protocol.
+2. Review critical and major hits; replace the term with the academic
+   equivalent, or introduce the academic term on first mention with the
+   engineering term in parentheses.
+3. Run `scripts/scan_engineering_terms.py` to detect any remaining hits and
+   verify that critical/major terminology has been addressed.
+4. Cross-check that abbreviations such as PT and IFT are defined before first
+   use.
+
+Outputs:
+
+- terminology-corrected manuscript;
+- `paper_revision_work/eng_term_scan.md` (report from the skill or the local
+  scanner);
+- list of unresolved terminology decisions requiring author input.
+
+Do not use this pass to disguise weak evidence or unsupported claims.
+
+#### 6b. Integrated language pass
+
+Responsible component: `language-fusion.md`.  
 Specialist components: `nature-polishing`, `manuscript-writing-review`,
 `humanizer_academic`, `academic-deai`, `academic-deai-zh`.
 
 Inputs:
 
-- a structurally stable manuscript;
+- a structurally stable manuscript after the terminology pass;
 - claim register;
 - section-level record of edits.
 

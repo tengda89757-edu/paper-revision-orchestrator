@@ -10,6 +10,16 @@ informal engineering terms—"checkpoint", "cell", "gate", "flip rate"—that
 appear unprofessional or confusing to medical-informatics reviewers. This pass
 systematically replaces such jargon with rigorous academic equivalents.
 
+## Relationship to the `engineering-to-academic` skill
+
+This reference is part of `paper-revision-orchestrator` and is intended to be
+used **together with** the specialist `engineering-to-academic` skill. The
+orchestrator should invoke that skill as the primary component for this pass;
+this file provides the protocol, severity rules, and cross-check list. The
+local `scripts/scan_engineering_terms.py` is a fallback scanner that prefers
+the skill's `glossary.yaml` when installed, and otherwise uses an embedded
+glossary so the orchestrator remains usable on its own.
+
 ## When to Apply
 
 Apply this pass **before** the integrated language pass (`language-fusion.md`)

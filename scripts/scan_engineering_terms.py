@@ -5,8 +5,14 @@ Part of paper-revision-orchestrator. Run this pass before the integrated
 language pass to catch engineering jargon that confuses medical-informatics
 reviewers.
 
+This script prefers the canonical glossary from the `engineering-to-academic`
+skill when it is available locally, and falls back to an embedded glossary
+otherwise. This keeps the orchestrator self-contained while avoiding drift
+from the specialist skill.
+
 Usage:
     python scripts/scan_engineering_terms.py <file.tex|md|txt> [--out report.md] [--fix]
+    python scripts/scan_engineering_terms.py <file> --glossary /path/to/glossary.yaml
 """
 
 from __future__ import annotations
@@ -18,7 +24,8 @@ from pathlib import Path
 from typing import Any
 
 
-# Embedded glossary — edit here to add new terms.
+# Embedded fallback glossary — used when the engineering-to-academic skill is
+# not installed locally. Keep this in sync with the canonical glossary.yaml.
 GLOSSARY: dict[str, Any] = {
     "categories": {
         "model_version": {
@@ -247,6 +254,59 @@ GLOSSARY: dict[str, Any] = {
 }
 
 
+def _canonical_glossary_path() -> Path | None:
+    """Return the canonical glossary path if the engineering-to-academic skill is installed."""
+    home = Path.home()
+    candidates = [
+        home / ".agents" / "skills" / "engineering-to-academic" / "glossary.yaml",
+        home / ".codex" / "skills" / "engineering-to-academic" / "glossary.yaml",
+        home / "skills" / "engineering-to-academic" / "glossary.yaml",
+    ]
+    for c in candidates:
+        if c.exists():
+            return c
+    return None
+
+
+def load_glossary(glossary_path: Path) -> dict[str, Any]:
+    """Load glossary from YAML, converting it to the same shape as GLOSSARY."""
+    try:
+        import yaml
+    except ImportError as exc:
+        raise SystemExit(
+            "PyYAML is required to load glossary.yaml. Install: pip install pyyaml"
+        ) from exc
+
+    text = glossary_path.read_text(encoding="utf-8")
+    docs = list(yaml.safe_load_all(text))
+    glossary: dict[str, Any] = {"categories": {}, "terms": []}
+    for doc in docs:
+        if doc is None:
+            continue
+        if "categories" in doc:
+            for cat in doc["categories"]:
+                glossary["categories"][cat["id"]] = {
+                    "name": cat.get("name", cat["id"]),
+                    "description": cat.get("description", ""),
+                }
+        if "terms" in doc:
+            for term in doc["terms"]:
+                glossary["terms"].append(term)
+    return glossary
+
+
+def get_glossary(preferred_path: Path | None = None) -> dict[str, Any]:
+    """Resolve the glossary to use: preferred > canonical > embedded."""
+    if preferred_path is not None and preferred_path.exists():
+        return load_glossary(preferred_path)
+
+    canonical = _canonical_glossary_path()
+    if canonical is not None:
+        return load_glossary(canonical)
+
+    return GLOSSARY
+
+
 def compile_patterns(terms: list[dict]) -> list[tuple[dict, re.Pattern]]:
     """Compile regex patterns from glossary terms."""
     compiled: list[tuple[dict, re.Pattern]] = []
@@ -259,8 +319,10 @@ def compile_patterns(terms: list[dict]) -> list[tuple[dict, re.Pattern]]:
                 compiled.append((term, pat))
         else:
             for p in patterns:
+                # YAML single-quoted backslashes are doubled; normalize for regex
+                fixed = p.replace("\\\\", "\\")
                 try:
-                    pat = re.compile(p, re.IGNORECASE)
+                    pat = re.compile(fixed, re.IGNORECASE)
                     compiled.append((term, pat))
                 except re.error:
                     print(f"[WARN] Invalid regex: {p}", file=sys.stderr)
@@ -355,7 +417,10 @@ def generate_report(path: Path, hits: list[dict], glossary: dict) -> str:
     lines.append("")
     lines.append("1. Address all 🔴 **critical** and 🟠 **major** hits before submission.")
     lines.append("2. Use `--fix` to auto-replace (review output manually).")
-    lines.append("3. Add domain-specific exceptions by editing `GLOSSARY` in this script.")
+    lines.append(
+        "3. Prefer the `engineering-to-academic` skill for a full terminology pass; "
+        "use this scanner only for quick detection or when the skill is unavailable."
+    )
     lines.append("")
 
     return "\n".join(lines)
@@ -391,6 +456,7 @@ def main() -> int:
         description="Scan manuscripts for engineering terminology."
     )
     parser.add_argument("path", help="Manuscript file (.tex, .md, .txt)")
+    parser.add_argument("--glossary", help="Path to an external glossary.yaml")
     parser.add_argument("--out", help="Output report file (.md)")
     parser.add_argument("--fix", action="store_true", help="Generate fixed version")
     parser.add_argument("--fix-out", help="Output path for fixed file")
@@ -400,7 +466,8 @@ def main() -> int:
     if not path.exists():
         raise SystemExit(f"File not found: {path}")
 
-    glossary = GLOSSARY
+    glossary_path = Path(args.glossary).expanduser().resolve() if args.glossary else None
+    glossary = get_glossary(glossary_path)
     compiled = compile_patterns(glossary["terms"])
     hits = scan_file(path, compiled)
 

@@ -129,9 +129,11 @@ specifications. Then proceed as follows:
    facts.
 6. **Engineering-terminology pass** (conditional): when the manuscript comes
    from AI/engineering practice and targets medical-informatics or biomedical
-   journals, run `scripts/scan_engineering_terms.py` to detect and replace
-   engineering jargon ("checkpoint", "cell", "gate", "flip rate") with academic
-   equivalents. See `references/engineering-terminology.md` for the glossary.
+   journals, invoke the `engineering-to-academic` skill to replace engineering
+   jargon ("checkpoint", "cell", "gate", "flip rate") with rigorous academic
+   equivalents. Use `references/engineering-terminology.md` for the protocol and
+   `scripts/scan_engineering_terms.py` only as a quick detection fallback or
+   residual scan when the skill is unavailable.
 7. **Integrated language pass**: undertaken only after the evidentiary structure
    is stable. Use `nature-polishing` for section-level academic flow, then the
    SCIWRITE-style `manuscript-writing-review` passes for clarity and precision,
@@ -156,7 +158,8 @@ blocker is encountered:
 5. Verify the evidence, numbers, citations, and sectional logic affected by the revision.
 6. Re-rank the remaining issues.
 7. Repeat until no P0/P1 issues remain.
-8. Carry out the prose, de-AI, and formatting passes.
+8. Carry out the integrated language pass in order: engineering-terminology
+   (conditional), prose polishing, de-AI editing, and formatting.
 9. Conduct the final assessment.
 ```
 
