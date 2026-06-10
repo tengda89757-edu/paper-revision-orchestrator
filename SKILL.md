@@ -46,6 +46,13 @@ requests author input only where a genuine authorial decision is required.
    and is never reused for a different quantity or category. The number of
    figures and panels, and every value they display, must agree with the
    manuscript text and the underlying source data.
+10. **Exercise causal conservatism.** Observational, cross-sectional, or
+    retrospective designs do not support causal conclusions unless the
+    manuscript explicitly articulates and defends the necessary causal
+    assumptions (JAMA 2024 framework). Replace causal verbs—*cause, lead to,
+    demonstrate, prove, induce*—with associational equivalents when the
+    evidence does not warrant them. Annotate unresolved causal gaps as
+    `[CAUSAL GAP: ...]`.
 
 ## Minimal-Input Start
 

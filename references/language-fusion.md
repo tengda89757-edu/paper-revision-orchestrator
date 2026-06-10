@@ -93,6 +93,9 @@ Apply `academic-deai` before accepting the revised text:
 A language pass is acceptable only when:
 
 - no unsupported claim has been strengthened;
+- causal verbs (*cause, lead to, demonstrate, prove, induce*) are absent from
+  observational/cross-sectional findings unless the causal assumptions are
+  explicitly defended;
 - citation relationships and numerical statements are unchanged or verified;
 - terminology is consistent across Methods, Results, captions, and Discussion;
 - AI-like residue has been reduced without rendering the prose generic;

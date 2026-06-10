@@ -82,15 +82,35 @@ Inputs:
 - result files, tables, figures, code, logs, supplements;
 - journal profile.
 
+Procedure:
+
+1. Map each major claim to its evidence anchor and mark its status.
+2. Flag overclaim patterns (see `references/audit-matrix-and-final-gate.md`,
+   Overclaim and Causation Guard):
+   - causal verbs (cause, lead to, demonstrate, prove) used for observational or
+     cross-sectional findings;
+   - in-silico / in-vitro results extrapolated to clinical outcomes without
+     boundary statements;
+   - subgroup findings generalized to the full population;
+   - associational findings reframed as efficacy or intervention effectiveness.
+3. Downgrade or annotate `[EVIDENCE GAP: ...]` / `[CAUSAL GAP: ...]` for claims
+   the evidence cannot support.
+4. Verify that causal claims in observational studies satisfy the JAMA 2024
+   tenability criteria (causal question, estimand, design, assumptions,
+   sensitivity analyses, conditional interpretation); if not, require downgrade
+   to associational language.
+
 Outputs:
 
 - `claim_ledger.md`;
 - P0 evidence failures;
 - unsupported or overstated claims to be qualified or removed;
+- overclaim matches flagged in `paper_revision_work/overclaim_scan.md`;
 - the smallest useful set of missing analyses or experiments.
 
 Conclude this stage once the claims in the Abstract, Introduction, Results, and
-Discussion carry a status of `supported`, `weak but bounded`, or `needs-author`.
+Discussion carry a status of `supported`, `weak but bounded`, or `needs-author`,
+and no causal-language overclaim remains unaddressed in non-RCT manuscripts.
 Do not proceed to structural revision while unsupported central claims remain
 stated strongly.
 

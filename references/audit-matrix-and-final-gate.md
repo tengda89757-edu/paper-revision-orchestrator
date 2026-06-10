@@ -14,8 +14,8 @@ or `not-applicable`.
 | Abstract/Title | target-journal pattern, concrete evidence, no unsupported novelty or impact claim |
 | Introduction | problem, unresolved gap, prior limitation, contribution, evidence-backed bullets |
 | Methods | reproducibility detail, data, models, statistics, ethics, software, parameters |
-| Results | section claims, numbers, tables, figures, baselines, ablations, robustness, uncertainty |
-| Discussion | interpretation, relation to prior work, limitations, practical/theoretical scope |
+| Results | section claims, numbers, tables, figures, baselines, ablations, robustness, uncertainty; **causal language guard** (no cause/effect/demonstrate for associative/cross-sectional findings) |
+| Discussion | interpretation, relation to prior work, limitations, practical/theoretical scope; **causation tenability** (if causal claims are made, assumptions are articulated and plausible per JAMA 2024 framework) |
 | Citations | source support, primary vs secondary sources, missing recent work, citation formatting |
 | Figures/tables | panel logic, caption claims, visual hierarchy, source data, export/readability, consistent style and color palette, fixed color semantics (one color = one meaning, no reuse), figure count and displayed values consistent with the manuscript |
 | Data/code | availability statement, repositories, identifiers, restrictions, FAIR metadata |
@@ -38,6 +38,66 @@ Action: keep / verify / weaken / delete / ask author
 
 A claim with `unsupported` or `unknown` status cannot remain stated strongly in
 the Abstract, Introduction, cover letter, or response letter.
+
+## Overclaim and Causation Guard
+
+Apply this guard to AI/biomedical-informatics manuscripts that report
+observational, cross-sectional, or retrospective findings.
+
+### Causal-verb audit
+
+For each of the following verbs in the Abstract, Results, or Discussion,
+confirm that the study design supports it; otherwise replace with an
+associational equivalent:
+
+| Causal verb (risky) | Safer associational equivalent |
+|---|---|
+| cause, lead to, result in | associate with, linked to, related to |
+| demonstrate, prove, establish | show, report, observe, identify |
+| indicate, suggest (as causation) | suggest a possible association |
+| induce, trigger, drive | coincide with, accompany, correlate with |
+| improve outcomes (without RCT) | associated with improved outcomes |
+| predict risk (if no external validation) | associated with increased risk |
+
+### Overclaim pattern checklist
+
+- [ ] **Correlation → Causation**: cross-sectional or retrospective findings are
+  not framed as causal mechanisms.
+- [ ] **In-vitro / in-silico → Clinical**: cell-line or computational results are
+  not extrapolated to patient outcomes without explicit caveats.
+- [ ] **Single-center → Generalizable**: single-hospital or single-dataset
+  findings do not claim universal clinical applicability.
+- [ ] **Association → Efficacy**: observational associations are not reframed as
+  treatment efficacy or intervention effectiveness.
+- [ ] **Mechanism → Evidence**: biological pathway hypotheses are not presented
+  as established mechanistic evidence.
+- [ ] **Subgroup → Population**: subgroup findings are not generalized to the
+  full population without boundary statements.
+
+### Causal-interpretation tenability (JAMA 2024 framework)
+
+If the manuscript uses causal language for observational data, verify the
+following are explicitly addressed; if not, downgrade to associational language
+or annotate `[CAUSAL GAP: ...]`:
+
+1. **Causal question is explicit**: the research goal is framed in causal terms,
+   comparing well-defined alternatives for a specific target population.
+2. **Causal estimand is specified**: the quantity that would answer the causal
+   question is defined (e.g., risk difference, hazard ratio under intervention).
+3. **Study design supports the estimand**: time-zero, eligibility criteria,
+   follow-up, and covariate measurement are aligned with the causal question.
+4. **Causal assumptions are articulated**: no uncontrolled confounding,
+   positivity, consistency, and other required assumptions are stated and
+   discussed.
+5. **Sensitivity / falsification analyses are reported**: quantitative bias
+   analyses, negative controls, or triangulation across data sources are used
+   to examine assumption plausibility.
+6. **Interpretation is conditional**: the Discussion uses an "if-then" structure
+   (e.g., "If the assumption of no unmeasured confounding holds, these findings
+   suggest a possible causal effect of X on Y").
+
+If the study is not an RCT and does not satisfy (1)–(6), causal language is a
+**P0 / P1 blocker** for journals following AMA/JAMA style.
 
 ## Structural Checkpoint
 
