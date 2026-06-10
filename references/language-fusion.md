@@ -22,6 +22,93 @@ severity levels, and scanner usage.
 This pass must not be used to disguise weak reasoning, unsupported claims,
 missing evidence, or a mismatch with the journal.
 
+## Self-Contained Execution Guide
+
+When the specialist skills (`nature-polishing`, `manuscript-writing-review`,
+`humanizer_academic`, `academic-deai`) are not installed, execute the four
+passes below using only local file tools. The outputs must match the
+deliverables of the specialist pipeline.
+
+### Quick-scan commands
+
+Run these at the start of the language pass to baseline the manuscript:
+
+```bash
+# AI residue scan (Python)
+python3 -c "
+import re
+with open('main.tex') as f:
+    text = f.read()
+patterns = {
+    'inflated': r'\b(groundbreaking|pivotal|crucial|landmark|seminal|paradigm-shifting)\b',
+    'superficial_ing': r'\b(highlighting|underscoring|showcasing|ensuring|demonstrating|revealing)\b',
+    'vague_attr': r'\b(studies have shown|experts argue|it is widely known|research suggests that)\b',
+    'promotional': r'\b(showcase|landscape|testament|underscore|pave the way|open new avenues)\b',
+    'copula': r'\b(serves as|stands as|represents|acts as|functions as)\b',
+}
+for name, pat in patterns.items():
+    hits = len(re.findall(pat, text, re.IGNORECASE))
+    print(f'{name}: {hits}')
+"
+
+# Long sentences (>40 words)
+python3 -c "
+import re
+with open('main.tex') as f:
+    text = f.read()
+sents = re.split(r'[.!?]\s+', text)
+long = [s for s in sents if len(s.split()) > 40]
+print(f'Long sentences (>40 words): {len(long)}')
+for s in long[:5]:
+    print(f'  {len(s.split())} words: {s[:120]}...')
+"
+
+# Redundancy patterns
+grep -c 'it is important to note that' main.tex
+grep -c 'in order to' main.tex
+grep -c 'due to the fact that' main.tex
+
+# Passive voice estimate
+python3 -c "
+import re
+with open('main.tex') as f:
+    text = f.read()
+passive = ['was', 'were', 'is', 'are', 'been', 'being']
+count = sum(len(re.findall(rf'\b{p}\s+\w+ed\\b', text, re.I)) for p in passive)
+print(f'Estimated passive constructions: ~{count}')
+"
+
+# Core term consistency
+python3 -c "
+import re
+with open('main.tex') as f:
+    text = f.read()
+terms = ['generation availability', 'realized exposure', 'conditional shift',
+         'target shift', 'self-gate', 'gating condition', 'attacker',
+         'defender', 'intervention', 'baseline', 'target-unaware',
+         'target-aware', 'strict-deception', 'broad-codebook',
+         'partial identification', 'identification boundary']
+for t in terms:
+    print(f'{t:25s}: {len(re.findall(t, text, re.I)):3d}')
+"
+```
+
+### Long-sentence repair heuristic
+
+A sentence exceeding 40 words is a candidate for splitting. Before editing,
+verify it is not a list, a definition, or a formal theorem statement.
+
+Repair strategies (in order of preference):
+1. **Split at a conjunction** (`, and`, `;`, `:`) into two independent sentences.
+2. **Extract a parenthetical clause** into its own sentence.
+3. **Demote a subordinate clause** to a preceding or following sentence.
+4. **Avoid**: turning one long sentence into three or more short sentences; this
+   can fragment the logical flow.
+
+Example:
+- Before: *"The paper contributes (i) an estimand taxonomy separating generation availability, realized exposure, generated-subset conditional shift, and partial-identification bounds; (ii) a measurement protocol separating observable decision shift from post-hoc tactic labels; and (iii) a reporting rule requiring the generation process, denominator, measurement label, and identification boundary before any target-aware rate is interpreted."* (51 words)
+- After: *"The paper contributes three things: an estimand taxonomy...; a measurement protocol...; and a reporting rule.... The underlying selection principle is standard."*
+
 ## Contributing Components
 
 | Layer | Skill | Contribution |

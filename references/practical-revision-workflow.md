@@ -199,30 +199,38 @@ This stage has two ordered parts.
 
 #### 6a. Engineering-terminology pass (conditional)
 
-Apply when the manuscript originates from AI/engineering practice (Hugging Face,
-GitHub) and targets biomedical informatics, medical AI, or clinical NLP
-journals.
+Apply when the manuscript contains AI/engineering-derived terminology, regardless
+of target journal. The pass is especially critical for cross-disciplinary
+submissions targeting biomedical informatics, medical AI, or clinical NLP
+journals, but a lightweight scan is recommended for all AI/engineering
+manuscripts to catch register drift.
 
+**Primary path** (when `engineering-to-academic` skill is installed):  
 Responsible component: `engineering-to-academic` skill.  
 Supporting component: `scripts/scan_engineering_terms.py` for quick detection
-or residual scanning when the skill is unavailable; `references/engineering-terminology.md`
-for the protocol and glossary.
+or residual scanning; `references/engineering-terminology.md` for the protocol
+and glossary.
+
+**Fallback path** (self-contained, when the skill is unavailable):  
+Responsible component: built-in `references/engineering-terminology.md`.  
+Supporting component: `scripts/scan_engineering_terms.py`, or manual grep for
+the glossary terms listed in the reference. The glossary covers model-versioning
+terms (checkpoint, base, instruct), experimental-design terms (cell, lane,
+delta), algorithm terms (gate, pipeline, artifact), and behavior terms (flip,
+engagement, one-off).
 
 Inputs:
 
 - revised manuscript after structural and evidentiary revision;
-- confirmation that the target journal's readership expects biomedical academic
-  register rather than engineering register.
+- target journal readership expectations (biomedical vs. general academic).
 
-Procedure:
+Procedure (both paths):
 
-1. Invoke the `engineering-to-academic` skill to run its glossary-based scan
-   and replacement protocol.
-2. Review critical and major hits; replace the term with the academic
+1. Scan the manuscript against the glossary in `references/engineering-terminology.md`.
+2. Review critical (🔴) and major (🟠) hits; replace the term with the academic
    equivalent, or introduce the academic term on first mention with the
    engineering term in parentheses.
-3. Run `scripts/scan_engineering_terms.py` to detect any remaining hits and
-   verify that critical/major terminology has been addressed.
+3. Re-scan to verify that critical/major terminology has been addressed.
 4. Cross-check that abbreviations such as PT and IFT are defined before first
    use.
 
@@ -230,7 +238,7 @@ Outputs:
 
 - terminology-corrected manuscript;
 - `paper_revision_work/eng_term_scan.md` (report from the skill or the local
-  scanner);
+  scan);
 - list of unresolved terminology decisions requiring author input.
 
 Conclude this stage once no critical or major engineering-terminology hits
@@ -244,8 +252,15 @@ Do not use this pass to disguise weak evidence or unsupported claims.
 #### 6b. Integrated language pass
 
 Responsible component: `language-fusion.md`.  
-Specialist components: `nature-polishing`, `manuscript-writing-review`,
-`humanizer_academic`, `academic-deai`, `academic-deai-zh`.
+Specialist components (preferred when installed): `nature-polishing`,
+`manuscript-writing-review`, `humanizer_academic`, `academic-deai`,
+`academic-deai-zh`.
+
+**Fallback path** (self-contained, when specialist skills are unavailable):  
+Execute the four-layer protocol documented in `references/language-fusion.md`
+using only local file tools and the built-in pattern lists. See the reference
+for concrete grep/Python scan commands, long-sentence thresholds (>40 words),
+AI-residue keyword lists, and the acceptance criteria checklist.
 
 Inputs:
 
@@ -256,7 +271,7 @@ Inputs:
 Outputs:
 
 - revised prose;
-- a report on the language pass;
+- `paper_revision_work/language_pass.md` (report on the language pass);
 - any high-risk edits that were not made;
 - remaining AI residue or manual checks.
 

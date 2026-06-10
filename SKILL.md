@@ -134,18 +134,24 @@ specifications. Then proceed as follows:
 5. **Detail alignment**: verify numbers, methods, baselines, figures, captions,
    terminology, limitations, citations, data and code statements, and repository
    facts.
-6. **Engineering-terminology pass** (conditional): when the manuscript comes
-   from AI/engineering practice and targets medical-informatics or biomedical
-   journals, invoke the `engineering-to-academic` skill to replace engineering
-   jargon ("checkpoint", "cell", "gate", "flip rate") with rigorous academic
-   equivalents. Use `references/engineering-terminology.md` for the protocol and
-   `scripts/scan_engineering_terms.py` only as a quick detection fallback or
-   residual scan when the skill is unavailable.
+6. **Engineering-terminology pass** (conditional): apply when the manuscript
+   contains AI/engineering-derived terminology. For cross-disciplinary
+   submissions targeting biomedical informatics, medical AI, or clinical NLP
+   journals, invoke the `engineering-to-academic` skill. In all cases, run a
+   lightweight scan using `references/engineering-terminology.md` and
+   `scripts/scan_engineering_terms.py` (or manual grep) to verify no engineering
+   jargon slips into the academic register. This pass can be executed
+   self-contained without the specialist skill.
 7. **Integrated language pass**: undertaken only after the evidentiary structure
-   is stable. Use `nature-polishing` for section-level academic flow, then the
-   SCIWRITE-style `manuscript-writing-review` passes for clarity and precision,
-   and finally `humanizer_academic`/`academic-deai` to remove AI residue without
-   altering meaning.
+   is stable. Prefer the specialist pipeline (`nature-polishing` →
+   `manuscript-writing-review` → `humanizer_academic`/`academic-deai`) when
+   installed. When specialist skills are unavailable, execute the self-contained
+   protocol in `references/language-fusion.md`: (a) section-flow check, (b)
+   SCIWRITE precision pass (redundancy, passive voice, buried predicates,
+   terminology consistency, numerical checks), (c) humanizer residue pass
+   (AI-pattern detection), and (d) academic de-AI safeguard. Both paths produce
+   the same deliverables: revised prose, a language-pass report, and a list of
+   manual checks.
 7. **Submission package**: prepare figures, citations, data-availability
    statements, cover letter, highlights, title page, reviewer response, or
    checklist as required.
