@@ -35,18 +35,28 @@ Inputs:
 
 - workspace path or manuscript path;
 - target journal if provided;
-- author constraints.
+- author constraints;
+- any prior `paper_revision_work/` (treat as unverified).
+
+Procedure:
+
+1. Run `python scripts/discover_paper_artifacts.py <workspace> --out paper_revision_work/artifacts.json`
+   at the start of every session. Do not skip because a prior `artifacts.json`
+   already exists.
+2. Compare the fresh output with any prior inventory. Flag discrepancies
+   (new files, missing files, changed scores) as potential regressions or
+   overlooked materials.
 
 Outputs:
 
-- `paper_revision_work/artifacts.json`;
+- `paper_revision_work/artifacts.json` (fresh, timestamped);
 - the selected primary manuscript, or a single clarifying question where the
   choice is ambiguous;
 - an editing strategy: direct editing, replacement passages, tracked changes, or
   discussion only.
 
 Conclude this stage once the primary manuscript and the available supporting
-materials have been identified.
+materials have been identified from a freshly generated inventory.
 
 ### 1. Target-journal and recent-paper calibration
 
@@ -197,13 +207,12 @@ once all figures share a consistent style and a fixed color encoding.
 
 This stage has two ordered parts.
 
-#### 6a. Engineering-terminology pass (conditional)
+#### 6a. Engineering-terminology pass (mandatory for AI/engineering manuscripts)
 
-Apply when the manuscript contains AI/engineering-derived terminology, regardless
-of target journal. The pass is especially critical for cross-disciplinary
-submissions targeting biomedical informatics, medical AI, or clinical NLP
-journals, but a lightweight scan is recommended for all AI/engineering
-manuscripts to catch register drift.
+Run this pass for every manuscript that contains AI or engineering-derived
+terminology, regardless of target journal. The pass is **not optional**.
+Even when the target journal is not biomedical, the scan catches register
+mismatches and ensures the terminology layer is defensible.
 
 **Primary path** (when `engineering-to-academic` skill is installed):  
 Responsible component: `engineering-to-academic` skill.  
@@ -222,30 +231,42 @@ engagement, one-off).
 Inputs:
 
 - revised manuscript after structural and evidentiary revision;
-- target journal readership expectations (biomedical vs. general academic).
+- target journal readership expectations (biomedical vs. general academic);
+- any prior `paper_revision_work/eng_term_scan.md` (treat as unverified).
 
 Procedure (both paths):
 
-1. Scan the manuscript against the glossary in `references/engineering-terminology.md`.
-2. Review critical (🔴) and major (🟠) hits; replace the term with the academic
-   equivalent, or introduce the academic term on first mention with the
-   engineering term in parentheses.
-3. Re-scan to verify that critical/major terminology has been addressed.
-4. Cross-check that abbreviations such as PT and IFT are defined before first
-   use.
+1. **Run the scanner fresh.** Execute `scripts/scan_engineering_terms.py` on
+   the current manuscript source. Do not skip this step because a prior
+   assessment claimed "no hits" or "passed".
+2. **Review every hit individually.** For each critical (🔴) and major (🟠)
+   hit, examine the surrounding context in the manuscript and compare with the
+   glossary entry. Decide explicitly for each hit:
+   - **Replace**: substitute with the academic equivalent (e.g. `cell` → `tile`
+     in a waffle-chart caption).
+   - **Keep with justification**: write the reason in the scan report
+     (acceptable reasons: "core defined term of this paper", "official model
+     name", "raw analysis variable name", "code repository name").
+   - **Disambiguate on first mention**: introduce the academic term with the
+     engineering term in parentheses, then use only the academic term.
+3. **Edit the manuscript** for all "replace" and "disambiguate" decisions.
+4. **Re-scan** to verify that resolved hits are gone and no new hits were
+   introduced by the edits.
+5. **Cross-check** the glossary checklist in `references/engineering-terminology.md`
+   Step 5 and record the status of each checkbox in the scan report.
 
 Outputs:
 
 - terminology-corrected manuscript;
-- `paper_revision_work/eng_term_scan.md` (report from the skill or the local
-  scan);
+- `paper_revision_work/eng_term_scan.md` containing the full scan output,
+  the per-hit decision (replace / keep / disambiguate), the justification for
+  every kept hit, and the cross-check checkbox status;
 - list of unresolved terminology decisions requiring author input.
 
-Conclude this stage once no critical or major engineering-terminology hits
-remain unaddressed, required abbreviations are defined before first use, and
-any unresolved author decisions are recorded. Completion is judged by the
-terminology cross-check in `references/engineering-terminology.md`, not solely
-by the existence of a scan report.
+Conclude this stage only after the re-scan confirms that all intended hits
+have been addressed and the cross-check checklist is explicitly marked in the
+report. Completion is judged by the terminology cross-check, not solely by the
+existence of a scan report.
 
 Do not use this pass to disguise weak evidence or unsupported claims.
 

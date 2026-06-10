@@ -53,6 +53,14 @@ requests author input only where a genuine authorial decision is required.
     demonstrate, prove, induce*—with associational equivalents when the
     evidence does not warrant them. Annotate unresolved causal gaps as
     `[CAUSAL GAP: ...]`.
+11. **Do not trust existing assessment files.** When inheriting a workspace that
+    already contains `paper_revision_work/` with prior assessments, claims,
+    ledgers, or scan reports, treat every prior declaration as unverified.
+    Re-run the relevant scripts (`discover_paper_artifacts.py`,
+    `scan_engineering_terms.py`, `proofing_scan.py`) and re-verify every
+    claim against the current manuscript source. A prior file stating
+    "no hits" or "passed" is not sufficient evidence; only script output
+    on the current file state counts.
 
 ## Minimal-Input Start
 
@@ -90,8 +98,11 @@ draft exists, or when several primary drafts are equally plausible.
    - `blast`: the author indicates `爆模式`, `多模型`, `多agent`, `并行`, or `parallel review`.
 2. Catalogue the available materials using local tools first: manuscript,
    figures, tables, results, code, bibliography, reviews, supplements, and
-   target constraints. Where helpful, run
-   `python scripts/discover_paper_artifacts.py <workspace> --out paper_revision_work/artifacts.json`.
+   target constraints. **Always run**
+   `python scripts/discover_paper_artifacts.py <workspace> --out paper_revision_work/artifacts.json`
+   at the start of every session, even if the workspace already contains
+   prior `paper_revision_work/` files. The script output is the ground-truth
+   inventory; do not rely on a prior `artifacts.json` without re-running.
 3. If a target journal is provided, perform target-journal calibration before
    the first complete rewrite.
 4. Create or update `paper_revision_work/` in the goal and blast regimes, unless
@@ -134,14 +145,20 @@ specifications. Then proceed as follows:
 5. **Detail alignment**: verify numbers, methods, baselines, figures, captions,
    terminology, limitations, citations, data and code statements, and repository
    facts.
-6. **Engineering-terminology pass** (conditional): apply when the manuscript
-   contains AI/engineering-derived terminology. For cross-disciplinary
-   submissions targeting biomedical informatics, medical AI, or clinical NLP
-   journals, invoke the `engineering-to-academic` skill. In all cases, run a
-   lightweight scan using `references/engineering-terminology.md` and
-   `scripts/scan_engineering_terms.py` (or manual grep) to verify no engineering
-   jargon slips into the academic register. This pass can be executed
-   self-contained without the specialist skill.
+6. **Engineering-terminology pass** (mandatory for all AI/engineering
+   manuscripts): run `scripts/scan_engineering_terms.py` against the current
+   manuscript source and produce `paper_revision_work/eng_term_scan.md`.
+   Review every hit individually against the context in the manuscript and the
+   glossary in `references/engineering-terminology.md`. Do not dismiss hits
+   solely because they are numerous or because a prior assessment claimed
+   "no hits". For each hit, decide: (a) replace with the academic equivalent,
+   (b) keep with a written justification in the scan report (e.g. "core defined
+   term", "model name", "raw variable name"), or (c) introduce the academic
+   term on first mention with the engineering term in parentheses. After
+   editing, re-run the scanner to confirm the addressed hits are resolved.
+   For cross-disciplinary submissions targeting biomedical informatics, medical
+   AI, or clinical NLP journals, additionally invoke the `engineering-to-academic`
+   skill as the primary component.
 7. **Integrated language pass**: undertaken only after the evidentiary structure
    is stable. Prefer the specialist pipeline (`nature-polishing` →
    `manuscript-writing-review` → `humanizer_academic`/`academic-deai`) when
@@ -166,14 +183,17 @@ blocker is encountered:
 ```text
 1. Refresh the journal and literature profile if target-specific context has become outdated.
 2. Conduct or update the comprehensive audit.
-3. Select the highest unresolved P0/P1 issue.
-4. Edit the text or produce a discrete replacement passage.
-5. Verify the evidence, numbers, citations, and sectional logic affected by the revision.
-6. Re-rank the remaining issues.
-7. Repeat until no P0/P1 issues remain.
-8. Carry out the integrated language pass in order: engineering-terminology
-   (conditional), prose polishing, de-AI editing, and formatting.
-9. Conduct the final assessment.
+3. **Re-verify any claims inherited from prior sessions** (e.g. a prior
+   `final_assessment.md` stating "no hits" or "ready"). Run the relevant
+   scripts and overwrite stale working files rather than appending to them.
+4. Select the highest unresolved P0/P1 issue.
+5. Edit the text or produce a discrete replacement passage.
+6. Verify the evidence, numbers, citations, and sectional logic affected by the revision.
+7. Re-rank the remaining issues.
+8. Repeat until no P0/P1 issues remain.
+9. Carry out the integrated language pass in order: engineering-terminology
+   (mandatory scan + hit-by-hit review), prose polishing, de-AI editing, and formatting.
+10. Conduct the final assessment.
 ```
 
 Do not iterate merely to refine prose. Repeat only when a specific audit item
